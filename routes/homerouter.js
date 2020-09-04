@@ -8,7 +8,7 @@ var auth = require('../middlewares/auth');
 
 var user = require('../Models/user');
 var project = require('../Models/project');
-var svgimage = require('../Models/svgimage');
+var svgimage = require('../Models/element');
 var slide = require('../Models/slide');
 var music = require('../Models/music');
 

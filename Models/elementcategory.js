@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const svgimage = mongoose.Schema({
+const element = mongoose.Schema({
     name:{type:String},
     path:{type:String},
     preview:{type:String},
 })
-module.exports = mongoose.model('svgimage',svgimage,'svgimage');
+module.exports = mongoose.model('element',svgimage,'element');
