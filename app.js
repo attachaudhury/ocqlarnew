@@ -1,21 +1,23 @@
 // #region variables 
-var fs = require('fs');
 var express = require('express');
 var bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 var engine = require('ejs-locals')
 var mongoose = require("mongoose")
-var user = require('./Models/user')
-var project = require('./Models/project')
-
-var homeRouter = require('./routes/homerouter');
-
-var auth = require('./middlewares/auth');
-
 var app = express();
 app.engine('ejs', engine);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
+//models
+var user = require('./models/user')
+
+//routes
+var authrouter = require('./routes/auth');
+var homerouter = require('./routes/home');
+var editorrouter = require('./routes/editor');
+var adminrouter = require('./routes/admin');
+var userrouter = require('./routes/user');
 
 mongoose.connect('mongodb://localhost:27017/ocqlar', {
   useNewUrlParser: true, useUnifiedTopology: true
@@ -35,43 +37,44 @@ app.use((req, res, next) => {
   next()
 });
 app.use(express.static("public"));
+
+
+app.use('/auth', authrouter);
+app.use('/home', homerouter);
+app.use('/editor', editorrouter);
+app.use('/admin', adminrouter);
+app.use('/user', userrouter);
+
+app.use('/', (req,res)=>{
+  res.redirect('/home/index')
+});
+
+
 //dbsetting();
 async function dbsetting() {
   await user.remove({});
-  await project.remove({});
 
-  var adminuser = await user.findOne({ username: 'admin', role: 'admin' });
+  var adminuser = await user.findOne({ email: 'admin@admin.com', role: 'admin' });
   if (!adminuser) {
     await user.create({
-      activestatus: 'active',
-      createdDate: Date.now(),
-      designation: 'web admin',
-      description: "I am web admin",
+      activestatus:"active",
       email: "admin@admin.com",
-      emailsecondary: "admin2@admin.com",
-      fullname: 'web admin',
-      facebook: 'facebook',
-      lastlogindate: Date.now(),
-      linkedin: "linkedin",
-      phone: '03024759550',
-      phonesecondary: 'phonesecondary',
-      password: "admin@123",
-      profileimage: "/uploads/defaultprofileimage.png",
+      fullname: 'admin',
+      password:"admin@123",
       role: 'admin',
-      skype: 'skype',
-      twitter: 'twitter',
-      username: 'admin',
-      website: 'www.agencywebsite.com',
-      whatsapp: '123456',
-      youtube: 'youtube',
+    })
+  }
+  var adminuser = await user.findOne({ email: 'user@user.com', role: 'user' });
+  if (!adminuser) {
+    await user.create({
+      activestatus:"active",
+      email: "user@user.com",
+      fullname: 'user',
+      password:"user@123",
+      role: 'user',
     })
   }
 }
-app.use('/home', homeRouter);
-
-app.get('/',auth, async (req, res, next) => {
-  res.redirect('home/dashboard');
-});
 
 
 module.exports = app;

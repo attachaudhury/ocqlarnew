@@ -1,16 +1,15 @@
 module.exports=(req,res,next)=>{
     try{
-        const authToken = req.cookies['AuthToken'];
-        if(authToken!=undefined)
+        const userid = req.cookies['userid'];
+        if(userid!=undefined)
         {
-            req.user=authToken;
+            req.userid=userid;
             next()
         }
         else{
-            res.redirect('/home/login')
+            res.redirect('/home/index')
         }
     }catch(err){
-        console.log("Auth request Failed")
-        return res.redirect('/home/login')
+        return res.redirect('/home/index')
     }
 }

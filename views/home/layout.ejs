@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>::Ocqlar:: Home</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+<body>
+  <div>
+    <a href="/home/index">Home</a>
+    <a href="/home/templates">Template</a>
+    <%if (data.isloggedin==true) { %>
+      <a href="/editor/index">Editor</a>
+      <a href="/user/index">User Panel</a>
+      <a href="/auth/signout">Log out</a>
+      <% } %>
+  </div>
+    <%-body -%> 
+</body>
+</html>
