@@ -12,7 +12,7 @@ exports.signin = async (req, res) => {
         
         if (user) {
             console.log('user loggedin')
-            console.log('user loggedin')
+            console.log(user)
             res.cookie('userid', user._id);
             res.cookie('userrole', user.role);
             return res.redirect('/editor/index');

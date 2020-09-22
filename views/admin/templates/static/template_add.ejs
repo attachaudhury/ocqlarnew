@@ -1,0 +1,28 @@
+<form enctype="multipart/form-data" class="container" action="/admin/templateadd" method="post">
+    <div class="row">
+      <div class="form-group col">
+        <label for="author">Name</label>
+        <input  name="name" type="text" required="required"
+          class="form-control">
+      </div>
+      <div class="form-group col">
+        <label for="title">Template_Type</label>
+        <input  name="template_type" type="text" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="description">Feature_Type</label>
+        <textarea  name="feature_type" rows="8" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="image">Image</label>
+        <input  name="files"  type="file" class="form-control" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <button name="submit" type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>

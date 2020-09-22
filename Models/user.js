@@ -5,6 +5,7 @@ const user = mongoose.Schema({
     createddate:{type:Date,required:false},
     email:{type:String,unique:true,required:false},
     fullname:{type:String,required:false},
+    package:{type:String,required:false},
     lastlogindate:{type:Date,required:false},
     image:{type:String,required:false},
     membershiptype:{type:String,required:false},
