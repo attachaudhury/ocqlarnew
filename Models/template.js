@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
-var TemplateSchema = new mongoose.Schema({
+var template = new mongoose.Schema({
     name: {
-        type: String,
-        required: 'This field is required.'
+        type: String
     },
     template_type: {
         type: String
@@ -19,4 +18,4 @@ var TemplateSchema = new mongoose.Schema({
 
 
 
-mongoose.model('Template', TemplateSchema);
+mongoose.model('template', template,'template');

@@ -71,7 +71,7 @@ app.use('/', (req,res)=>{
 });
 
 
-// dbsetting();
+ //dbsetting();
 async function dbsetting() {
   await user.remove({});
 

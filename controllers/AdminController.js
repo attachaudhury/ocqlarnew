@@ -2,8 +2,6 @@
 const mongoose = require('mongoose');
 const auth = require('../middlewares/auth');
 const authorize = require('../middlewares/authorize');
-const Category = mongoose.model('Category');
-const Template = mongoose.model('Template');
 var category = require('../Models/category');
 var template = require('../Models/template');
 // var multer  = require('multer');
@@ -17,6 +15,9 @@ router.get('/', auth, authorize(['admin']), (req, res) => {
     res.render("admin/index");
 });
 router.get('/category', auth, authorize(['admin']), (req, res) => {
+    var temp = template;
+    var cat= category;
+
     res.render("admin/addcategory");
 });
 
@@ -104,26 +105,33 @@ router.post('/category/update', auth, authorize(['admin']), async function(req, 
 
 
 router.all("/templateadd", auth, authorize(['admin']), async (req, res, next) => {
-    var loggedinuser = await Template.findById(req.template);
+    //var loggedinuser = await Template.findById(req.template);
     if (req.method == "GET") {
-      res.render('admin/templates/static/template_add', { message: 'You can add template here', loggedinuser: loggedinuser });
+      res.render('admin/templates/static/template_add', { message: 'You can add template here' });
     }
     else {
       var form = new multiparty.Form();
-      form.parse(req, async function (err, fields, files) {
+      form.parse(req, async (err, fields, files)=> {
         var tempimage = files.files[0];
-        var name = fields.name[0];
-        var template_type = fields.template_type[0];
-        var feature_type = fields.feature_type[0];
-        var tempimagename = "/uploads/" + Date.now() + ".png";
-        var object = {
-          name: name,
-          template_type: template_type,
-          feature_type: feature_type,
-          image: tempimagename
+        var object = new template();
+        object.name = fields.name[0];
+        object.template_type = fields.template_type[0];
+        object.feature_type = fields.feature_type[0];
+        object.image = "/uploads/" + Date.now() + ".png";
+        
+        fse.moveSync(tempimage.path, "public" + object.image, { overwrite: true });
+        var temp = template;
+        var cat= category;
+        try{
+
+            var result = await template.save(object);
+            var i = 0;
         }
-        fse.moveSync(tempimage.path, "public" + tempimagename, { overwrite: true });
-        var result = await template.create(object);
+        catch(ex)
+        {
+            var i = 0;
+        }
+        
         res.render('admin/templates/static/template_add', { message: 'Template successfully Saved', loggedinuser: loggedinuser });
       })
     }
