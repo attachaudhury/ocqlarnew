@@ -117,22 +117,12 @@ router.all("/templateadd", auth, authorize(['admin']), async (req, res, next) =>
         object.name = fields.name[0];
         object.template_type = fields.template_type[0];
         object.feature_type = fields.feature_type[0];
-        object.image = "/uploads/" + Date.now() + ".png";
+        object.image = "/uploads/" + Date.now() + ".svg";
         
         fse.moveSync(tempimage.path, "public" + object.image, { overwrite: true });
-        var temp = template;
-        var cat= category;
-        try{
-
-            var result = await template.save(object);
-            var i = 0;
-        }
-        catch(ex)
-        {
-            var i = 0;
-        }
+        var result = await object.save();
+        res.render('admin/templates/static/template_add', { message: 'Template successfully Saved' });
         
-        res.render('admin/templates/static/template_add', { message: 'Template successfully Saved', loggedinuser: loggedinuser });
       })
     }
   })

@@ -18,4 +18,4 @@ var template = new mongoose.Schema({
 
 
 
-mongoose.model('template', template,'template');
+module.exports=mongoose.model('template', template,'template');
