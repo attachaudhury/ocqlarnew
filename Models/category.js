@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-var CategorySchema = new mongoose.Schema({
+var category = new mongoose.Schema({
     name: {
         type: String,
-        required: 'This field is required.'
+       
     },
     cat_keywords: {
         type: String
@@ -22,4 +22,4 @@ var CategorySchema = new mongoose.Schema({
 
 
 
-mongoose.model('Category', CategorySchema);
+module.exports=mongoose.model('category', category,'category');

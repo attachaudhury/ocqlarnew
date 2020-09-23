@@ -1,0 +1,38 @@
+
+<% if (success_msg) { %>
+    <div class="alert alert-danger"><%= success_msg %></div>
+  <% } %>
+  
+  <% if (insert_msg) { %>
+    <div class="alert alert-danger"><%= insert_msg %></div>
+  <% } %>
+  <table border="1">
+    <tr>
+                    <th>Index</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Featured_Type</th>
+            <th>Image</th>
+             <th>Action</th>
+    </tr>
+    <% for(var i=0; i<template.length;i++) { %>
+            <tr>
+              <td><%= i %></td>
+              <td><%= template[i].name %></td>
+              <td><%= template[i].template_type %></td>
+              <td><%= template[i].feature_type %></td>
+              <td><img src=<%= template[i].files %>" width="50">
+                </td>
+              <
+              <td>
+                      <a href='edit/<%= template[i]._id %>'>Edit</a> | 
+                      <a href='delete/<%= template[i]._id %>'>Delete</a> |
+                      
+            
+            </td>
+            </tr>
+          <% } %>
+    
+  </table>
+  
+  

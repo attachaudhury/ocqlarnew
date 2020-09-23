@@ -3,7 +3,9 @@
   <div class="alert alert-danger"><%= success_msg %></div>
 <% } %>
 
-
+<% if (insert_msg) { %>
+  <div class="alert alert-danger"><%= insert_msg %></div>
+<% } %>
 <table border="1">
   <tr>
                   <th>Index</th>
@@ -11,6 +13,7 @@
           <th>Keywords</th>
           <th>Category_Type</th>
           <th>Featured_Type</th>
+          <th>Image</th>
            <th>Action</th>
   </tr>
   <% for(var i=0; i<category.length;i++) { %>
@@ -20,7 +23,10 @@
             <td><%= category[i].cat_keywords %></td>
             <td><%= category[i].cat_type %></td>
             <td><%= category[i].featured_type %></td>
-            <td>/uploads/<%= category[i].image %></td>
+            <td><img src="../../<%= category[i].image %>" width="50">
+
+              </td>
+            
             <td>
                     <a href='edit/<%= category[i]._id %>'>Edit</a> | 
                     <a href='delete/<%= category[i]._id %>'>Delete</a> |

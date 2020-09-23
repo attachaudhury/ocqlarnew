@@ -1,53 +1,5 @@
 
 
-<!--  
-<form method="post"action="/admin/category/update/:id">
-
-    <table>
-
-        <tr>
-            <td>Name : </td>
-            <td>
-                <input type="text" placeholder="Name" name="name" value="<%= category.name %>" required> </td>
-        </tr>
-        <tr>
-            <td> Keywords :</td>
-            <td>
-                <input type="text" placeholder="Keywords" name="cat_keywords" value="<%= category.cat_keywords %>" required>
-            </td>
-        </tr>
-        <tr>
-            <td>Category_Type :</td>
-            <td>
-                <input type="text" placeholder="Category_Type" name="cat_typ" value="<%= category.cat_type %>" required>
-            </td>
-        </tr>
-        <tr>
-            <td>Featured_type :</td>
-            <td>
-                <input type="text" placeholder="Featured_type" name="featured_type" value="<%= category.featured_type %>" required>
-            </td>
-        </tr>
-
-        <tr>
-
-            <td>
-                <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
-                  <!-- <input type="button" value="Display" onclick="window.location='/category/list';"> -->
-            <!-- </td>
-        </tr>
-    </table>
-
-
-
-
-
-</form> --> 
-
-<% layout('./layout') -%>
-
-
-
 <form action="/admin/category/update"autocomplete="off" method="POST">
     <input type="hidden" name="_id" value="<%=category._id%>">
     <div class="form-group">
@@ -79,6 +31,11 @@
                 <option value="animated">Animated</option>
             </select>        
         </div>
+    </div>
+    <div class="form-group">
+        <label>Image</label>
+        <input type="file" class="form-control" name="files"value="<%= category.files %>>
+     
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>

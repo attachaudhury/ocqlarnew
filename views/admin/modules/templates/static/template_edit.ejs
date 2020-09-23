@@ -1,0 +1,38 @@
+
+
+<form action="/admin/template/update"autocomplete="off" method="POST">
+    <input type="hidden" name="_id" value="<%=template._id%>">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Name"value="<%= template.name %>" >
+        <!-- <div class="text-danger">
+            {{template.fullNameError}}</div> -->
+    </div>
+    <div class="form-group">
+     
+
+  
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>template_type</label>
+            <select class="form-control" name="cat_type" tabindex="-1" aria-hidden="true" value="<%=template.template_type%>">
+                <option value="static">Static</option>
+                <option value="animated">Animated</option>
+            </select>        
+        </div>
+        <div class="form-group col-md-6">
+            <label>Feature_Type</label>
+            <select class="form-control" name="feature_type" tabindex="-1" aria-hidden="true" value="<%=template.feature_type%>">
+              <option value="featured">yes</option>
+              <option value="non-featured">no</option>
+            </select>        
+        </div>
+    <div class="form-group">
+        <label>Image</label>
+        <input type="file" class="form-control" name="files"value="<%= template.files %>>
+     
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
+    </div>
+</form>

@@ -1,0 +1,35 @@
+<form enctype="multipart/form-data" class="container" action="/admin/template" method="post">
+    <div class="row">
+      <div class="form-group col">
+        <label for="author">Name</label>
+        <input  name="name" type="text" required="required"
+          class="form-control">
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label>Template_Type</label>
+        <select class="form-control" name="template_type" tabindex="-1" aria-hidden="true">
+            <option value="animated">Animated</option>
+            <option value="static">Static</option>
+        </select>        
+    </div>
+    </div>
+    <div class="row">
+     
+    <div class="form-group col-md-6">
+      <label>Feature_Type</label>
+      <select class="form-control" name="feature_type" tabindex="-1" aria-hidden="true">
+        <option value="featured">yes</option>
+        <option value="non-featured">no</option>
+      </select>        
+  </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="image">Image</label>
+        <input  name="files"  type="file" class="form-control" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <button name="submit" type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>

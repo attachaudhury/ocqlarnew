@@ -16,4 +16,5 @@ const user = mongoose.Schema({
     registeredthrough:{type:String,required:false},
 })
 user.plugin(validator)
+
 module.exports = mongoose.model('user',user,'user');
