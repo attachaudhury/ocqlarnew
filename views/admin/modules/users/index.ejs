@@ -1,0 +1,38 @@
+<% layout('../../layouts/layout') -%>
+
+<h1>This is admin panel</h1>
+
+<table border="1">
+    <tr>
+                    <th>Index</th>
+            <th>Image</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Package</th>
+            <th>Email</th>
+             <th>Action</th>
+    </tr>
+    <% for(var i=0; i<user.length;i++) { %>
+            <tr>
+                
+              <td><%= i %></td>
+              <td><img src="../../<%= user[i].image %>" width="50">
+              <td><%= user[i].fname %></td>
+              <td><%= user[i].lname %></td>
+              <td><%= user[i].package %></td>
+              <td><%= user[i].email %></td>
+           
+  
+                </td>
+              
+              <td>
+                      <a href='edit/<%= user[i]._id %>'>Edit</a> | 
+                      <a href='delete/<%= user[i]._id %>'>Delete</a> |
+            
+            </td>
+            </tr>
+          <% } %>
+    
+  </table>
+  
+  

@@ -37,16 +37,53 @@ router.all("/registration", auth, authorize(['admin']), async (req, res, next) =
       fse.moveSync(tempimage.path, "public" + store.image, { overwrite: true });
       var result = await store.save();
       req.flash('insert_msg', 'Record Inserted Successfully!');
-      res.redirect('/admin/user/list');
+      res.redirect('/admin');
       
     })
   }
 })
+router.get('/', auth, authorize(['admin']), function(req, res) {
+  user.find(function(err, user) {
+      if (err) {
+          console.log(err);
+      } else {
+          res.render('admin/modules/users/index', { user: user });
+          // console.log(category);
+      }
+  });
+});
 
+router.get('/user/edit/:id', auth, authorize(['admin']), function(req, res) {
+  console.log(req.params.id);
+  user.findById(req.params.id, function(err, user) {
+      if (err) {
+          console.log(err);
+      } else {
+          console.log(user);
+
+          res.render('admin/modules/users/edit_user', { user: user });
+      }
+  });
+});
+
+
+router.get('/user/delete/:id',auth, authorize(['admin']), function(req, res) {
+  user.findByIdAndRemove(req.params.id, function(err, project) {
+      if (err) {
+
+          req.flash('error_msg', 'Record Not Deleted!');
+          return res.redirect('back');
+      } else {
+
+          req.flash('success_msg', 'Record Deleted!');
+          return res.redirect('back');
+      }
+  });
+});
 
 
 router.get('/', auth, authorize(['admin']), (req, res) => {
-    res.render("admin/index");
+    res.render("admin/modules/users/index");
 });
 
   
@@ -148,7 +185,7 @@ router.all("/template", auth, authorize(['admin']), async (req, res, next) => {
         fse.moveSync(tempimage.path, "public" + store.image, { overwrite: true });
         var result = await store.save();
         req.flash('insert_msg', 'Record Inserted Successfully!');
-        res.redirect('/admin/template/list');
+        return res.redirect('back');
         
       })
     }
@@ -156,7 +193,8 @@ router.all("/template", auth, authorize(['admin']), async (req, res, next) => {
  
 
   router.get('/template/list', auth, authorize(['admin']), function(req, res) {
-    var templetetype = req.params.templatetype || "static";
+    var templatetype = req.query.templatetype || "static";
+    console.log(templatetype)
     template.find({template_type:templatetype},function(err, template) {
         // if (err) {
         //     console.log(err);
@@ -164,12 +202,12 @@ router.all("/template", auth, authorize(['admin']), async (req, res, next) => {
         //     res.render('admin/modules/templates/static/template_list', { template: template });
         //     // console.log(category);
         // }
-        if (templetetype =="static") {
+        res.render('admin/modules/templates/static/template_add', { template: template,template_type:templatetype});
+        if (templatetype =="static") {
           
-          res.render('admin/modules/templates/static/template_list', { template: template,template_type:template_type});
       } else {
           // console.log(category);
-          console.log(template_type);
+          console.log(templatetype);
       }
     });
 });

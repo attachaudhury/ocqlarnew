@@ -4,7 +4,8 @@ const user = mongoose.Schema({
     activestatus:{type:String,required:false,default:'active'},
     createddate:{type:Date,required:false},
     email:{type:String,unique:true,required:false},
-    fullname:{type:String,required:false},
+    fname:{type:String,required:false},
+    lname:{type:String,required:false},
     package:{type:String,required:false},
     lastlogindate:{type:Date,required:false},
     image:{type:String,required:false},
@@ -16,5 +17,5 @@ const user = mongoose.Schema({
     registeredthrough:{type:String,required:false},
 })
 user.plugin(validator)
-
+mongoose.models = {}
 module.exports = mongoose.model('user',user,'user');

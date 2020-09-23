@@ -13,14 +13,12 @@
     <a href="/home/index">Home</a>
     <a href="/home/templates">Template</a>
     <a href="/home/about">About</a>
-    <%if (data.isloggedin==true) { %>
+
       <a href="/editor/index">Editor</a>
       <a href="/user/index">User Panel</a>
       <a href="/admin/template/list?templatetype=static">Static</a>
       <a href="/admin/template/list?templatetype=animated">Animated</a>
 
-      <a href="/auth/signout">Log out</a>
-      <% } %>
   </div>
     <%-body -%> 
 </body>
