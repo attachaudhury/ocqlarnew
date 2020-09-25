@@ -5,6 +5,7 @@ const authorize = require('../middlewares/authorize');
 var category = require('../Models/category');
 var template = require('../Models/template');
 var user = require('../Models/user');
+var element = require('../Models/element');
 
 const express = require('express');
 const fse = require('fs-extra')
@@ -100,7 +101,7 @@ router.all("/category", auth, authorize(['admin']), async (req, res, next) => {
         store.cat_keywords = fields.cat_keywords[0];
         store.cat_type = fields.cat_type[0];
         store.featured_type = fields.featured_type[0];
-        store.image = "/uploads/" + Date.now() + ".svg";
+        store.image = "/uploads/" + Date.now() + ".png";
         
         fse.moveSync(tempimage.path, "public" + store.image, { overwrite: true });
         var result = await store.save();
@@ -166,13 +167,21 @@ router.post('/category/update', auth, authorize(['admin']), async function(req, 
     
   });
 
+  router.get('/template', auth, authorize(['admin']), function(req, res) {
+    template.find(function(err, template) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('admin/modules/templates/static/template_add', { template: template });
+            // console.log(category);
+        }
+    });
+});
 
 
-router.all("/template", auth, authorize(['admin']), async (req, res, next) => {
-    if (req.method == "GET") {
-      res.render('admin/modules/templates/static/template_add', { message: 'You can add template here' });
-    }
-    else {
+router.post("/template", auth, authorize(['admin']), async (req, res, next) => {
+    
+    
       var form = new multiparty.Form();
       form.parse(req, async (err, fields, files)=> {
         var tempimage = files.files[0];
@@ -188,7 +197,7 @@ router.all("/template", auth, authorize(['admin']), async (req, res, next) => {
         return res.redirect('back');
         
       })
-    }
+  
   })
  
 
@@ -255,5 +264,51 @@ router.get('/template/delete/:id',auth, authorize(['admin']), function(req, res)
       }
   });
 });
+
+
+
+
+// Elements Create
+
+
+router.post("/element", auth, authorize(['admin']), async (req, res, next) => {
+  
+  
+    var form = new multiparty.Form();
+    form.parse(req, async (err, fields, files)=> {
+      var tempimage = files.files[0];
+      var store = new element();
+      store.name = fields.name[0];
+      store.element_type = fields.element_type[0];
+      store.element_category = fields.element_category[0];
+      store.image = "/uploads/" + Date.now() + ".mp3";
+      
+      fse.moveSync(tempimage.path, "public" + store.image, { overwrite: true });
+      var result = await store.save();
+      req.flash('insert_msg', 'Record Inserted Successfully!');
+      return res.redirect('back');
+      
+    })
+  
+})
+
+
+router.get('/element', auth, authorize(['admin']), function(req, res) {
+  
+
+    category.find(function(err, category) {
+    element.find(function(err, element) {
+   
+      if (err) {
+          console.log(err);
+      } else {
+          res.render('admin/modules/elements/element_add', { category: category,element:element });
+          // console.log(category);
+      }
+  });
+});
+});
+
+
 
 module.exports = router;

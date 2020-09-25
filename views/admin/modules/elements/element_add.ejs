@@ -1,0 +1,91 @@
+
+
+
+
+<form action="/admin/element" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Name" >
+        <!-- <div class="text-danger">
+            {{category.fullNameError}}</div> -->
+    </div>
+   
+
+  
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>element_category</label>
+            <select class="form-control" name="element_category" tabindex="-1" aria-hidden="true">
+                <option value="1" selected disabled>Choose Your Types</option>
+                <% for(var i=0; i<category.length;i++) { %>
+                <option value="<%= category[i].name %>"><%= category[i].name %></option>
+                <% } %>
+
+            </select>        
+        </div>
+        <div class="form-group col-md-6">
+            <label>element_type</label>
+            <select class="form-control" name="element_type" tabindex="-1" aria-hidden="true">
+                <option value="static">Static</option>
+                <option value="animated">Animated</option>
+            </select>        
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Image</label>
+        <input type="file" class="form-control" name="files">
+     
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
+        <a class="btn btn-secondary" href="/category/list"><i class="fa fa-list-alt"></i> View All</a>
+    </div>
+</form>
+
+<table border="1">
+    <tr>
+                    <th>Index</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>category</th>
+            <th>Image</th>
+             <th>Action</th>
+    </tr>
+    <% for(var i=0; i<element.length;i++) { %>
+            <tr>
+              <td><%= i %></td>
+              <td><%= element[i].name %></td>
+              <td><%= element[i].element_type %></td>
+              <td><%= element[i].element_category %></td>
+              <td><img src="../../<%= element[i].image %>" width="50">
+                </td>
+              <
+              <td>
+                      <a href='edit/<%= element[i]._id %>'>Edit</a> | 
+                      <a href='delete/<%= element[i]._id %>'>Delete</a> |
+                      
+            
+            </td>
+            </tr>
+          <% } %>
+
+
+            <div class="entry">
+   <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+ <h1>{{title}}</h1>
+ <div class="body">
+  <textarea name="editor1"></textarea>
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
+   {{body}}
+ </div>
+</div>
+
+
+  
+
+
+<!--  -->
+</table>
+
